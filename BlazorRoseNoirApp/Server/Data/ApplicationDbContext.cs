@@ -1,4 +1,5 @@
 ﻿using BlazorRoseNoirApp.Server.Models;
+using BlazorRoseNoirApp.Shared;
 using Duende.IdentityServer.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
@@ -13,5 +14,9 @@ namespace BlazorRoseNoirApp.Server.Data
 			IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
 		{
 		}
+
+		public DbSet<Product> Products { get; set; }
+
+		public DbSet<Variation>	Variations { get; set; }
 	}
 }
