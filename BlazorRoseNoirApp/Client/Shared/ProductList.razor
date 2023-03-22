@@ -1,0 +1,80 @@
+﻿@page "/ProductList"
+@inject HttpClient http;
+
+@using BlazorRoseNoirApp.Shared;
+
+<h1>Rose Noir Product List</h1>
+
+<div class="row">
+
+	@foreach(var product in Products)
+	{
+		<div class="col-lg-4"> 
+
+			<div class="text-center">
+				
+				<h4 class="p-2 m-2 bg-primary text-white">
+					@if(product.Category==Categories.Candles)
+					{
+						<i class="fa-solid fa-menorah p-2" title="Candles"></i>
+					}
+					else if(product.Category == Categories.NaturalSoaps)
+					{
+						<i class="fa-solid fa-soap p-2" title="Soaps"></i>
+					}
+					else if (product.Category == Categories.ReedDiffusers)
+					{
+						<i class="fa-solid fa-lines-leaning p-2" title="Reed Diffusers"></i>
+					}
+					else if (product.Category == Categories.BathShowers)
+					{
+						<i class="fa-solid fa-bomb p-2" title="Bath Bombs"></i>
+					}
+					@product.Name
+				</h4>
+			
+			</div>
+			<div class="m-2 text-center">
+				<a href="@($"product/{product.ProductId}")">
+					<img class="media-img"
+					 style="width:300px;"
+					 src="/images/@product.MainImageUrl"
+					 alt="@product.Name" />
+				</a>
+			</div>
+			<p>
+			</p>
+			@if(product.Variations != null)
+			{
+				<div class="text-center">
+					@foreach(Variation option in @product.Variations)
+					{
+						<p class="m-2">@option.Name</p>
+					
+						<a class="btn-success btn rounded-1 p-2 m-2">Buy</a>
+						<NavLink href="@($"product/{product.ProductId}")" class="btn btn-primary p-2 m-2">
+							View Details
+						</NavLink>
+					
+						<p class="text-primary">£@option.Price (@option.AvailableStock in stock)</p>
+					}
+				</div>
+			}
+		</div>
+	}
+
+</div>
+
+@code 
+{
+	private Categories category { get; set; } = Categories.None;
+
+	//Todo: add multiple columns later
+	private List<Product> Products = new List<Product>(); //ProductService.GetAllProducts();
+
+	protected override async Task OnInitializedAsync()
+	{
+		var result = await http.GetFromJsonAsync<List<Product>>("api/Products");
+		if (result != null) Products = result;
+	}
+}
