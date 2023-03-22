@@ -7,12 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BlazorRoseNoirApp.Server.Data;
 using BlazorRoseNoirApp.Shared;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BlazorRoseNoirApp.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase
+	public class ProductsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
@@ -23,7 +24,8 @@ namespace BlazorRoseNoirApp.Server.Controllers
 
         // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+		[AllowAnonymous]
+		public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
           if (_context.Products == null)
           {
