@@ -1,6 +1,7 @@
 using BlazorRoseNoirApp.Server.Data;
 using BlazorRoseNoirApp.Server.Models;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+	.AddRoles<IdentityRole>()
 	.AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddIdentityServer()
@@ -27,6 +29,16 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.Configure<IdentityOptions>(options => 
+{
+	options.User.RequireUniqueEmail = true;
+});
+
+builder.Services.AddRazorPages(options =>
+{
+	options.Conventions.AllowAnonymousToPage("/ProductList");
+});
 
 var app = builder.Build();
 app.UseSwaggerUI();
@@ -60,5 +72,9 @@ app.UseAuthorization();
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
+
+//app.MapBlazorHub();
+//app.MapFallbackToPage("/Public/{*path:nonfile}", "/Public/_PublicHost");
+//app.MapFallbackToPage("/_Host");
 
 app.Run();

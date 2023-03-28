@@ -18,5 +18,7 @@ namespace BlazorRoseNoirApp.Server.Data
 		public DbSet<Product> Products { get; set; }
 
 		public DbSet<Variation>	Variations { get; set; }
+
+		//public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 	}
 }

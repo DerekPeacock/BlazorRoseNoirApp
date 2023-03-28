@@ -13,6 +13,7 @@ namespace BlazorRoseNoirApp.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
 	public class ProductsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;

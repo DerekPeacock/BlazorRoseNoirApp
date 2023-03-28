@@ -2,6 +2,7 @@
 @inject HttpClient http;
 
 @using BlazorRoseNoirApp.Shared;
+@using Microsoft.AspNetCore.Authorization;
 
 <h1>Rose Noir Product List</h1>
 
@@ -67,6 +68,7 @@
 
 @code 
 {
+	
 	private Categories category { get; set; } = Categories.None;
 
 	//Todo: add multiple columns later

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorRoseNoirApp.Server", "BlazorRoseNoirApp\Server\BlazorRoseNoirApp.Server.csproj", "{39907404-04BE-43D7-92DA-6FBEC60FA0C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRoseNoirApp.Server", "BlazorRoseNoirApp\Server\BlazorRoseNoirApp.Server.csproj", "{39907404-04BE-43D7-92DA-6FBEC60FA0C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorRoseNoirApp.Client", "BlazorRoseNoirApp\Client\BlazorRoseNoirApp.Client.csproj", "{E4DCC556-8617-40C2-B61F-D01745D97A55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRoseNoirApp.Client", "BlazorRoseNoirApp\Client\BlazorRoseNoirApp.Client.csproj", "{E4DCC556-8617-40C2-B61F-D01745D97A55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorRoseNoirApp.Shared", "BlazorRoseNoirApp\Shared\BlazorRoseNoirApp.Shared.csproj", "{C5455A05-96B2-4659-BD9F-993B6AD7F671}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRoseNoirApp.Shared", "BlazorRoseNoirApp\Shared\BlazorRoseNoirApp.Shared.csproj", "{C5455A05-96B2-4659-BD9F-993B6AD7F671}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
