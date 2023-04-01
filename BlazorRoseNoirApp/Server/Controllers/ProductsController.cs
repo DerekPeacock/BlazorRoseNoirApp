@@ -35,6 +35,20 @@ namespace BlazorRoseNoirApp.Server.Controllers
             return await _context.Products.ToListAsync();
         }
 
+        // GET: api/Products
+        [HttpGet("{category}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts(Categories category)
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+
+            return await _context.Products
+                .Where(p => p.Category == category).ToListAsync();
+        }
+
         // GET: api/Products/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
