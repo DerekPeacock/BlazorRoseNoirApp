@@ -4,7 +4,7 @@
 @using BlazorRoseNoirApp.Shared;
 @using Microsoft.AspNetCore.Authorization;
 
-<h1>Rose Noir Product List</h1>
+<h1>La Rose Noir Product List</h1>
 
 <div class="row">
 
@@ -12,39 +12,9 @@
 	{
 		<div class="col-lg-4"> 
 
-			<div class="text-center">
-				
-				<h4 class="p-2 m-2 bg-primary text-white">
-					@if(product.Category==Categories.Candles)
-					{
-						<i class="fa-solid fa-menorah p-2" title="Candles"></i>
-					}
-					else if(product.Category == Categories.NaturalSoaps)
-					{
-						<i class="fa-solid fa-soap p-2" title="Soaps"></i>
-					}
-					else if (product.Category == Categories.ReedDiffusers)
-					{
-						<i class="fa-solid fa-lines-leaning p-2" title="Reed Diffusers"></i>
-					}
-					else if (product.Category == Categories.BathShowers)
-					{
-						<i class="fa-solid fa-bomb p-2" title="Bath Bombs"></i>
-					}
-					@product.Name
-				</h4>
-			
-			</div>
-			<div class="m-2 text-center">
-				<a href="@($"product/{product.ProductId}")">
-					<img class="media-img"
-					 style="width:300px;"
-					 src="/images/@product.MainImageUrl"
-					 alt="@product.Name" />
-				</a>
-			</div>
-			<p>
-			</p>
+			<ProductCard product="product"></ProductCard>
+
+			<p></p>
 			@if(product.Variations != null)
 			{
 				<div class="text-center">
