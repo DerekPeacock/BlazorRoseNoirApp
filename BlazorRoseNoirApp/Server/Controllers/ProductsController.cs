@@ -32,7 +32,7 @@ namespace BlazorRoseNoirApp.Server.Controllers
           {
               return NotFound();
           }
-            return await _context.Products.ToListAsync();
+            return await _context.Products.Include(p => p.Variations).ToListAsync();
         }
 
         // GET: api/Products

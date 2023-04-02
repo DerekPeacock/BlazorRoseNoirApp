@@ -14,7 +14,6 @@
 
 			<ProductCard product="product"></ProductCard>
 
-			<p></p>
 			@if(product.Variations != null)
 			{
 				<div class="text-center">
@@ -27,7 +26,7 @@
 							View Details
 						</NavLink>
 					
-						<p class="text-primary">£@option.Price (@option.AvailableStock in stock)</p>
+						<span class="text-primary mt-3 float-lg-end">£@option.Price (@option.AvailableStock in stock)</span>
 					}
 				</div>
 			}
