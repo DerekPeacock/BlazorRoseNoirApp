@@ -1,15 +1,15 @@
 ﻿@using BlazorRoseNoirApp.Shared;
 
-<div class="card" style="width:18rem;">
+<a href="@($"product/{product.ProductId}")">
+
+	<div class="card" style="width:20rem;">
 	
-	@*<a href="@($"product/{product.ProductId}")">*@
 		<img class="card-img-top"
 			 src="/images/@product.MainImageUrl"
 			 alt="@product.Name" />
-	@*</a>*@
 
-	<div class="card-body">
-		<h6 class="p-2 m-2 bg-primary text-white card-title">
+		<div class="card-body">
+			<h6 class="p-2 m-2 bg-primary text-white card-title">
 			@if (product.Category == Categories.Candles)
 			{
 				<i class="fa-solid fa-menorah p-2" title="Candles"></i>
@@ -28,12 +28,13 @@
 			}
 			@product.Name
 		</h6>
-		<p class="card-text">
-			A short summary of the product.
-		</p>
-	</div>
+			<p class="card-text">
+				A short summary of the product.
+			</p>
+		</div>
 
-</div>
+	</div>
+</a>
 
 @code 
 {
