@@ -1,4 +1,4 @@
-﻿@page "/ProductList"
+﻿@page "/ProductList/{category:int}"
 @inject HttpClient http;
 
 @using BlazorRoseNoirApp.Shared;
@@ -37,15 +37,27 @@
 
 @code 
 {
-	
-	private Categories category { get; set; } = Categories.None;
+	[Parameter]
+	public Categories Category { get; set; } = Categories.None;
 
-	//Todo: add multiple columns later
-	private List<Product> Products = new List<Product>(); //ProductService.GetAllProducts();
+	// Old ProductService.GetAllProducts();
+	private List<Product> Products = new List<Product>();
 
 	protected override async Task OnInitializedAsync()
 	{
-		var result = await http.GetFromJsonAsync<List<Product>>("api/Products");
-		if (result != null) Products = result;
- 	}
+		if(Category == Categories.None)
+		{
+			var result = await http.GetFromJsonAsync<List<Product>>("api/Products");
+			if (result != null) Products = result;
+		}
+		else
+		{
+			var result = await http.GetFromJsonAsync<List<Product>>("api/Products/" + @Category);
+			if (result != null) Products = result;
+		}
+	}
+
+	protected override void OnParametersSet()
+	{
+	}  
 }
