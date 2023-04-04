@@ -1,4 +1,4 @@
-﻿@page "/ProductList"
+﻿@page "/ProductList/{category:int?}"
 @inject HttpClient http;
 
 @using BlazorRoseNoirApp.Shared;
@@ -10,27 +10,30 @@
 
 	@foreach(var product in Products)
 	{
-		<div class="col-lg-4 mb-2"> 
+		if((category == 0) || (category == (int)product.Category))
+		{
+			<div class="col-lg-4 mb-2">
 
-			<ProductCard product="product"></ProductCard>
+				<ProductCard product="product"></ProductCard>
 
-			@if(product.Variations != null)
-			{
-				<div class="text-center">
-					@foreach(Variation option in @product.Variations)
-					{
-						<p class="m-2">@option.Name</p>
-					
-						<a class="btn-success btn rounded-1 p-2 m-2">Buy</a>
-						<NavLink href="@($"product/{product.ProductId}")" class="btn btn-primary p-2 m-2">
-							View Details
-						</NavLink>
-					
-						<span class="text-primary mt-3 float-lg-end">£@option.Price (@option.AvailableStock in stock)</span>
-					}
-				</div>
-			}
-		</div>
+				@if (product.Variations != null)
+				{
+					<div class="text-center">
+						@foreach (Variation option in @product.Variations)
+						{
+							<p class="m-2">@option.Name</p>
+
+							<a class="btn-success btn rounded-1 p-2 m-2">Buy</a>
+							<NavLink href="@($"product/{product.ProductId}")" class="btn btn-primary p-2 m-2">
+								View Details
+							</NavLink>
+
+							<span class="text-primary mt-3 float-lg-end">£@option.Price (@option.AvailableStock in stock)</span>
+						}
+					</div>
+				}
+			</div>
+		}
 	}
 
 </div>
@@ -38,26 +41,30 @@
 @code 
 {
 	[Parameter]
-	public Categories Category { get; set; } = Categories.None;
+	public int? category { get; set; } = null;
 
 	// Old ProductService.GetAllProducts();
 	private List<Product> Products = new List<Product>();
 
 	protected override async Task OnInitializedAsync()
 	{
-		if(Category == Categories.None)
+		if((category == 0) || (category == null))
 		{
 			var result = await http.GetFromJsonAsync<List<Product>>("api/Products");
 			if (result != null) Products = result;
 		}
 		else
 		{
-			var result = await http.GetFromJsonAsync<List<Product>>("api/Products/" + @Category);
-			if (result != null) Products = result;
+			var result = await http.GetFromJsonAsync<List<Product>>("api/Products");
+
+			if (result != null) 
+			{
+				Products = result;
+			}
 		}
 	}
 
 	protected override void OnParametersSet()
 	{
-	}  
+	}
 }
