@@ -28,47 +28,51 @@ namespace BlazorRoseNoirApp.Server.Controllers
 		[AllowAnonymous]
 		public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-          if (_context.Products == null)
-          {
-              return NotFound();
-          }
-            return await _context.Products.Include(p => p.Variations).ToListAsync();
-        }
-
-        // GET: api/Products
-        [HttpGet("{category}")]
-        [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts(Categories category)
-        {
             if (_context.Products == null)
             {
                 return NotFound();
             }
-
-            return await _context.Products
-                .Where(p => p.Category == category).ToListAsync();
+            
+            return Ok(await _context.Products.Include(p => p.Variations).ToListAsync());
         }
 
-        // GET: api/Products/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
-        {
-          if (_context.Products == null)
-          {
-              return NotFound();
-          }
-            var product = await _context.Products.FindAsync(id);
+		// GET: api/Products/5
+		[HttpGet("{id}")]
+		[AllowAnonymous]
+		public async Task<ActionResult<Product>> GetProduct(int id)
+		{
+			if (_context.Products == null)
+			{
+				return NotFound();
+			}
 
-            if (product == null)
-            {
-                return NotFound();
-            }
+			var product = await _context.Products.FindAsync(id);
 
-            return product;
-        }
+			if (product == null)
+			{
+				return NotFound();
+			}
 
-        // PUT: api/Products/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+			return Ok(product);
+		}
+
+		// GET: api/Products
+		//[HttpGet("{category}")]
+		//[AllowAnonymous]
+		//public async Task<ActionResult<IEnumerable<Product>>> GetProducts(Categories category)
+		//{
+		//    if (_context.Products == null)
+		//    {
+		//        return NotFound();
+		//    }
+
+		//    return await _context.Products
+		//        .Where(p => p.Category == category).ToListAsync();
+		//}
+
+		// PUT: api/Products/5
+		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+		
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProduct(int id, Product product)
         {

@@ -1,20 +1,33 @@
 ﻿@page "/ProductView/{id:int?}"
+
 @using BlazorRoseNoirApp.Shared;
 @inject HttpClient http;
+@using Microsoft.AspNetCore.Authorization;
 
 <PageTitle>Product</PageTitle>
 
-<h3>Product View</h3>
+@if(product != null)
+{
+	<h3>Product: @id @product.Name</h3>
+}
+else
+{
+	<h3>Product @id NOT FOUND!!</h3>
+}
 
 @code 
 {
-    public Product product { get; set; } = null;
+	public Product product { get; set; } = null;
 
-    private int id { get; set; }
+	[Parameter]
+	public int? id { get; set; }
 
+	[AllowAnonymous]
 	protected override async Task OnInitializedAsync()
 	{
-		//var result = await http.GetFromJsonAsync<Product>("api/Products/@id");
-		//if (result != null) product = result;
+		 if (id == null) id = 1;
+
+		var result = await http.GetFromJsonAsync<Product>("api/Products/{@id} ");
+		if (result != null) product = result;
 	}
 }
