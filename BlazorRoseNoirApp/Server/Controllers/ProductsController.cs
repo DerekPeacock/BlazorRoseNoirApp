@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BlazorRoseNoirApp.Server.Data;
 using BlazorRoseNoirApp.Shared;
@@ -111,10 +106,10 @@ namespace BlazorRoseNoirApp.Server.Controllers
           {
               return Problem("Entity set 'ApplicationDbContext.Products'  is null.");
           }
-            _context.Products.Add(product);
+            await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProduct", new { id = product.ProductId }, product);
+            return CreatedAtAction(nameof(GetProduct), new { id = product.ProductId }, product);
         }
 
         // DELETE: api/Products/5
@@ -125,7 +120,9 @@ namespace BlazorRoseNoirApp.Server.Controllers
             {
                 return NotFound();
             }
+
             var product = await _context.Products.FindAsync(id);
+
             if (product == null)
             {
                 return NotFound();
