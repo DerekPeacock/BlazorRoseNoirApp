@@ -1,0 +1,20 @@
+﻿@page "/ProductView/{id:int?}"
+@using BlazorRoseNoirApp.Shared;
+@inject HttpClient http;
+
+<PageTitle>Product</PageTitle>
+
+<h3>Product View</h3>
+
+@code 
+{
+    public Product product { get; set; } = null;
+
+    private int id { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		//var result = await http.GetFromJsonAsync<Product>("api/Products/@id");
+		//if (result != null) product = result;
+	}
+}

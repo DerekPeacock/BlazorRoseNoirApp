@@ -48,6 +48,8 @@
 
 	protected override async Task OnInitializedAsync()
 	{
+		if (category == null) category = 0;
+
 		if((category == 0) || (category == null))
 		{
 			var result = await http.GetFromJsonAsync<List<Product>>("api/Products");
