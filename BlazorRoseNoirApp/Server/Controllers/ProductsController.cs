@@ -84,7 +84,7 @@ namespace BlazorRoseNoirApp.Server.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductExists(id))
+                if (!await ProductExists(id))
                 {
                     return NotFound();
                 }
@@ -134,9 +134,9 @@ namespace BlazorRoseNoirApp.Server.Controllers
             return NoContent();
         }
 
-        private bool ProductExists(int id)
+        private async Task<bool> ProductExists(int id)
         {
-            return (_context.Products?.Any(e => e.ProductId == id)).GetValueOrDefault();
+            return await _context.Products.AnyAsync(e => e.ProductId == id);
         }
     }
 }
